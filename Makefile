@@ -66,5 +66,8 @@ handin: lab1-handin.tar.gz
 	@echo "Please visit http://css.csail.mit.edu/6.858/2012/labs/handin.html"
 	@echo "and upload $<.  Thanks!"
 
+submit: lab1-handin.tar.gz
+	./submit.py $<
+
 .PHONY: check check-bugs check-exstack check-libc handin
 
