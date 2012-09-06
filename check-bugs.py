@@ -41,7 +41,7 @@ def stat_summary(ans):
         desc = d.split("\n")[0]
         print(" %-8s %+4s | %-30s .." % (h.file, h.line, desc))
 
-    if len(ans) > 5:
+    if len(ans) >= 5:
         say_pass("found enough bugs")
     else:
         say_fail("found %s bugs, but need at least 5" % len(ans))
