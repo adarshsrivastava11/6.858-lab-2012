@@ -1,4 +1,5 @@
 /*.o
+/*.log
 /zookd
 /zookd-exstack
 /zookd-ssp
@@ -7,3 +8,4 @@
 /zookfs-ssp
 /zookld
 /shellcode.bin
+/zooksvc

@@ -469,7 +469,7 @@ ssize_t sendfd(int socket, const void *buffer, size_t length, int fd)
     msg.msg_control = cmsg;
     msg.msg_controllen = cmsg->cmsg_len;
     r = sendmsg(socket, &msg, 0);
-    if (r <= 0)
+    if (r < 0)
         warn("sendmsg");
     return r;
 }
@@ -492,7 +492,7 @@ again:
     r = recvmsg(socket, &msg, 0);
     if (r < 0 && errno == EINTR)
         goto again;
-    if (r <= 0)
+    if (r < 0)
         warn("recvmsg");
     else
         *fd = *((int*)CMSG_DATA(cmsg));

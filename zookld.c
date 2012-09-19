@@ -160,7 +160,7 @@ pid_t launch_svc(CONF *conf, const char *name)
             err(1, "setresgid");
         warnx("setresgid %ld", gid);
     }
-    if ((groups = NCONF_get_string(conf, name, "groups")))
+    if ((groups = NCONF_get_string(conf, name, "extra_gids")))
     {
         CONF_parse_list(groups, ',', 1, &group_parse_cb, NULL);
         if (setgroups(ngids, gids))
