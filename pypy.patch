@@ -1,0 +1,23 @@
+--- clean/pypy-pypy-release-1.6/pypy/rlib/rmarshal.py  2011-08-15 11:10:35.000000000 -0400
++++ pypy-pypy-release-1.6/pypy/rlib/rmarshal.py    2011-09-27 19:32:51.339470297 -0400
+@@ -195,7 +195,7 @@
+ 
+ def dump_float(buf, x):
+     buf.append(TYPE_FLOAT)
+-    s = formatd(x, 'g', 17)
++    s = '%f' % (x)
+     buf.append(chr(len(s)))
+     buf += s
+ add_dumper(annmodel.SomeFloat(), dump_float)
+
+--- clean/pypy-pypy-release-1.6/pypy/translator/c/src/debug_print.c	2011-09-27 21:31:51.000000000 -0400
++++ pypy-pypy-release-1.6/pypy/translator/c/src/debug_print.c	2011-09-27 21:32:08.000000000 -0400
+@@ -87,7 +87,7 @@
+ 
+      long long pypy_read_timestamp(void)
+      {
+-#  ifdef CLOCK_THREAD_CPUTIME_ID
++#  ifdef CLOCK_THREAD_CPUTIME_ID_NOT
+        struct timespec tspec;
+        clock_gettime(CLOCK_THREAD_CPUTIME_ID, &tspec);
+        return ((long long)tspec.tv_sec) * 1000000000LL + tspec.tv_nsec;

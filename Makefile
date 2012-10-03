@@ -13,12 +13,13 @@ zooksvc: %: %.o
 
 .PHONY: check
 check:
-	./check-lab2.py
+	./check_lab3.py
 
 
 .PHONY: setup
 setup:
 	./chroot-setup.sh
+	./chroot-setup-pypy.sh
 
 
 .PHONY: clean
@@ -27,13 +28,13 @@ clean:
 
 
 lab%-handin.tar.gz: clean
-	tar cf - `find . -type f | grep -v '^\.*$$' | grep -v '/CVS/' | grep -v '/\.svn/' | grep -v '/\.git/' | grep -v 'lab[0-9].*\.tar\.gz'` | gzip > $@
+	tar cf - `find . -type f | grep -v '^\.*$$' | grep -v '/CVS/' | grep -v '/\.svn/' | grep -v '/\.git/' | grep -v 'lab[0-9].*\.tar\.gz' | grep -v ^./pypy-sandbox.tar` | gzip > $@
 
 .PHONY: handin
-handin: lab2-handin.tar.gz
+handin: lab3-handin.tar.gz
 	@echo "Please visit http://css.csail.mit.edu/6.858/2012/labs/handin.html"
 	@echo "and upload $<.  Thanks!"
 
 .PHONY: submit
-submit: lab2-handin.tar.gz
+submit: lab3-handin.tar.gz
 	./submit.py $<

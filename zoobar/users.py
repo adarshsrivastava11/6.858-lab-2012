@@ -3,6 +3,7 @@ from flask import g, render_template, request, Markup
 from login import requirelogin
 from zoodb import *
 from debug import *
+from profile import *
 
 @catch_err
 @requirelogin
@@ -12,7 +13,11 @@ def users():
     if 'user' in request.values:
         user = g.persondb.query(Person).get(request.values['user'])
         if user:
-            args['profile'] = Markup("<b>%s</b>" % user.profile)
+            if user.profile.startswith("#!python"):
+                p = run_profile(user)
+            else:
+                p = user.profile
+            args['profile'] = Markup("<b>%s</b>" % p)
             args['user'] = user
             args['transfers'] = g.transferdb.query(Transfer).filter(
                                     or_(Transfer.sender==user.username,
