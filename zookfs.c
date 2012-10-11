@@ -13,6 +13,9 @@ int main(int argc, char **argv)
         errx(1, "Wrong arguments");
     fd = atoi(argv[1]);
 
+    signal(SIGPIPE, SIG_IGN);
+    signal(SIGCHLD, SIG_IGN);
+
     for (;;)
     {
         char envp[8192];
