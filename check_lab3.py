@@ -62,7 +62,10 @@ def restore_env():
     for f in pwfiles:
         sh("mv /etc/%s.bak /etc/%s" % (f, f))
 
-    sh("rm -rf /jail")
+    log("+ restoring /jail; test /jail saved to /jail.check..")
+    if os.path.exists("/jail.check"):
+        sh("rm -rf /jail.check")
+    sh("mv /jail /jail.check")
     if os.path.exists("/jail.bak"):
         sh("mv /jail.bak /jail")
 
@@ -74,7 +77,7 @@ def killall():
     sh("killall zookld zookd zookfs zooksvc >/dev/null 2>&1", exit_onerr=False)
 
 def setup():
-    log("+ setting up environment..")
+    log("+ setting up environment in fresh /jail..")
     check_root()
     killall()
     clean_env()
