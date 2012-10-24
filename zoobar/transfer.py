@@ -12,7 +12,7 @@ def transfer():
     try:
         if 'recipient' in request.form:
             recipient = g.persondb.query(Person).get(request.form['recipient'])
-            zoobars = eval(request.form['zoobars'])
+            zoobars = int(request.form['zoobars'])
             sender_balance = g.user.person.zoobars - zoobars
             recipient_balance = recipient.zoobars + zoobars
 

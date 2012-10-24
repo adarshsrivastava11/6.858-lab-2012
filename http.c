@@ -8,6 +8,7 @@
 #include <err.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <signal.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -340,6 +341,8 @@ void http_serve_executable(int fd, const char *pn)
         http_err(fd, 500, "fork: %s", strerror(errno));
         return;
     case 0:
+        signal(SIGPIPE, SIG_DFL);
+        signal(SIGCHLD, SIG_DFL);
         dup2(fd, 0);
         close(fd);
         dup2(pipefd[1], 1);

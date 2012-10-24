@@ -3,6 +3,7 @@
 #include "http.h"
 #include <err.h>
 #include <regex.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -22,6 +23,8 @@ int main(int argc, char **argv)
     if (argc != 2)
         errx(1, "Wrong arguments");
     fd = atoi(argv[1]);
+
+    signal(SIGPIPE, SIG_IGN);
 
     /* receive the number of services and the server socket from zookld */
     if ((recvfd(fd, &nsvcs, sizeof(nsvcs), &sockfd) <= 0) || sockfd < 0)

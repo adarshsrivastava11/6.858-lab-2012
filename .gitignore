@@ -9,3 +9,5 @@
 /zookld
 /shellcode.bin
 /zooksvc
+/run-shellcode
+/submit.key
