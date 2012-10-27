@@ -26,11 +26,6 @@ clean:
 lab%-handin.tar.gz: clean
 	tar cf - `find . -type f | grep -v '^\.*$$' | grep -v '/CVS/' | grep -v '/\.svn/' | grep -v '/\.git/' | grep -v 'lab[0-9].*\.tar\.gz' | grep -v ^./pypy-sandbox.tar | grep -v '/submit.key$$'` | gzip > $@
 
-.PHONY: handin
-handin: lab5-handin.tar.gz
-	@echo "Please visit http://css.csail.mit.edu/6.858/2012/labs/handin.html"
-	@echo "and upload $<.  Thanks!"
-
 .PHONY: submit
 submit: lab5-handin.tar.gz
 	./submit.py $<
