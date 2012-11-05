@@ -25,6 +25,7 @@ int main(int argc, char **argv)
     fd = atoi(argv[1]);
 
     signal(SIGPIPE, SIG_IGN);
+    signal(SIGCHLD, SIG_IGN);
 
     /* receive the number of services and the server socket from zookld */
     if ((recvfd(fd, &nsvcs, sizeof(nsvcs), &sockfd) <= 0) || sockfd < 0)
@@ -51,7 +52,17 @@ int main(int argc, char **argv)
         int cltfd = accept(sockfd, NULL, NULL);
         if (cltfd < 0)
             err(1, "accept");
-        process_client(cltfd);
+        switch (fork())
+        {
+        case -1: /* error */
+            err(1, "fork");
+        case 0:  /* child */
+            process_client(cltfd);
+            return 0;
+        default: /* parent */
+            close(cltfd);
+            break;
+        }
     }
 }
 
