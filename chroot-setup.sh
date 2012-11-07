@@ -40,6 +40,11 @@ mkdir -p /jail/usr/lib/
 cp -r /usr/lib/python2.6 /jail/usr/lib
 cp -r /usr/lib/pymodules /jail/usr/lib
 cp /usr/lib/libsqlite3.so.0 /jail/usr/lib
+cp /usr/lib/libxslt.so.1 /jail/usr/lib
+cp /usr/lib/libexslt.so.0 /jail/usr/lib
+cp /usr/lib/libxml2.so.2 /jail/usr/lib
+cp /lib/libgcrypt.so.11 /jail/lib
+cp /lib/libgpg-error.so.0 /jail/lib
 
 mkdir -p /jail/usr/local/lib/
 cp -r /usr/local/lib/python2.6 /jail/usr/local/lib

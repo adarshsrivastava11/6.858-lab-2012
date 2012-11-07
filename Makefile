@@ -11,6 +11,9 @@ zookld zookd zookfs: %: %.o http.o
 zooksvc: %: %.o
 
 
+.PHONY: check
+check:
+	./check-lab6.sh
 
 
 .PHONY: setup
@@ -27,5 +30,5 @@ lab%-handin.tar.gz: clean
 	tar cf - `find . -type f | grep -v '^\.*$$' | grep -v '/CVS/' | grep -v '/\.svn/' | grep -v '/\.git/' | grep -v 'lab[0-9].*\.tar\.gz' | grep -v ^./pypy-sandbox.tar | grep -v '/submit.key$$'` | gzip > $@
 
 .PHONY: submit
-submit: lab5-handin.tar.gz
+submit: lab6-handin.tar.gz
 	./submit.py $<
