@@ -3,15 +3,31 @@
 # desc
 #
 
-[zookd.c:1612]
-description goes here. for example, the 'buf' variable can be
-overwritten by the 'msg' variable because ...
+[zookd.c:64]
+reqpath[2048] is overflowable by sending a long URI. preventable with stack
+canaries.
 
-    <paste offending line(s) of code here>
+64    if ((errmsg = http_request_line(fd, reqpath, env, &env_len)))
 
-[http.c:1512]
-another description.
+[http.c:159]
+value[512] is overflowable by sending a long header value. preventable with
+stack canaries.
 
-    <paste offending line(s) of code here>
+159        url_decode(value, sp);
 
-# many more come here
+[http.c:165]
+envvar[512] is overflowable by sending a long header field that starts with
+"HTTP_". preventable with stack canaries.
+
+165            sprintf(envvar, "HTTP_%s", buf);
+
+[http.c:241]
+pn[1024] is overflowable by sending a long URI. preventable with stack canaries.
+
+241    strcat(pn, name)
+
+[http.c:319]
+name[1024] is overflowable by setting a long environment variable SCRIPT_NAME.
+preventable with stack canaries.
+
+319            dir_join(name, getenv("SCRIPT_NAME"), indices[i]);
