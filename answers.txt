@@ -1,0 +1,9 @@
+Exercise 2
+==========
+exploit-2a.py triggers an overflow of reqpath[2048]
+exploit-2b.py triggers an overflow of value[512]
+
+Exercise 3
+==========
+exploit-3.py exploits an overflow of value[512]
+all of the bugs in bug.txt can be exploited in the same manner
